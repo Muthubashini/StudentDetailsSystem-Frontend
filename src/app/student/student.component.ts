@@ -31,26 +31,55 @@ export class StudentComponent {
 }
 
 
-SaveStudent():void{
-      swal({
-        title: "Are you sure?",
-        text: "That you want to Add this details?",
-        icon: "warning",
-        dangerMode: true,
-      })
-      .then(willDelete => {
-        if (willDelete) {
-          this.studentService.createStudent(this.studentObj)
-          .subscribe({
-            next:(result):void=>{
-              this.GetAllStudents();  
-            }
-          });
-          swal("Sucessfull!", "Student has been Adedd!", "success");
-        }
-       
-      });    
+EditStudent(student: any): void {
+  this.studentObj = { ...student }; // Load student details into the form
+  this.isEditStudent = true; // Switch to edit mode
 }
+
+SaveStudent(): void {
+  if (this.isEditStudent) {
+    this.UpdateStudent();
+  } else {
+    swal({
+      title: "Are you sure?",
+      text: "Do you want to add this student?",
+      icon: "warning",
+      dangerMode: true,
+    }).then((willAdd) => {
+      if (willAdd) {
+        this.studentService.createStudent(this.studentObj).subscribe(() => {
+          this.GetAllStudents(); // Refresh the student list
+          swal("Success!", "Student has been added!", "success");
+          this.ClearForm();
+        });
+      }
+    });
+  }
+}
+
+UpdateStudent(): void {
+  swal({
+    title: "Are you sure?",
+    text: "Do you want to update this student's details?",
+    icon: "warning",
+    dangerMode: true,
+  }).then((willUpdate) => {
+    if (willUpdate) {
+      this.studentService.createStudent(this.studentObj).subscribe(() => {
+        this.GetAllStudents(); // Refresh the student list
+        this.isEditStudent = false;
+        swal("Updated!", "Student details have been updated!", "success");
+        this.ClearForm();
+      });
+    }
+  });
+}
+
+ClearForm(): void {
+  this.studentObj = {};
+  this.isEditStudent = false;
+}
+
 
 GetAllStudents(){
   this.studentService.GetAllStudents().subscribe(allData=>{
@@ -58,7 +87,7 @@ GetAllStudents(){
   })
 }
 
-DeleteStudentByCode(student_code:string){
+DeleteStudentByCode(student_code: string): void{
 
       swal({
          title: "Are you sure",
@@ -70,11 +99,26 @@ DeleteStudentByCode(student_code:string){
          if (willDelete) {
          swal("Deleted!", "Student has been deleted!", "success");
          this.studentService.DeleteStudentByCode(student_code).subscribe(() => {
-          console.log('Plant deleted:', student_code);
-          this.GetAllStudents(); // Refresh the student list.
+          this.GetAllStudents(); // Refresh the student list
+          swal("Deleted!", "Student has been deleted!", "success");
         });
          }
        });
    }
+
+   searchText: string = '';
+
+filteredStudents(): Array<any> {
+  if (!this.searchText) {
+    return this.students;
+  }
+  const lowerCaseSearchText = this.searchText.toLowerCase();
+  return this.students.filter((student) =>
+    student.student_code.toLowerCase().includes(lowerCaseSearchText) ||
+    student.student_name.toLowerCase().includes(lowerCaseSearchText) ||
+    student.home_town.toLowerCase().includes(lowerCaseSearchText)
+  );
+}
+
 
 }
