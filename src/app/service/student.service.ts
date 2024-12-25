@@ -22,7 +22,7 @@ export class StudentService {
   }
 
   GetStudentsByCode(student_code:string):Observable<any>{
-    return this.http.get(`${this.baseUrl}/getByCode`);
+    return this.http.get(`${this.baseUrl}/getByCode/${student_code}`);
   }
 
   DeleteStudentByCode(student_code:string):Observable<void>{

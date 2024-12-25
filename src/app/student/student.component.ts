@@ -106,19 +106,16 @@ DeleteStudentByCode(student_code: string): void{
        });
    }
 
-   searchText: string = '';
+   searchQuery:string = "";
 
-filteredStudents(): Array<any> {
-  if (!this.searchText) {
-    return this.students;
-  }
-  const lowerCaseSearchText = this.searchText.toLowerCase();
-  return this.students.filter((student) =>
-    student.student_code.toLowerCase().includes(lowerCaseSearchText) ||
-    student.student_name.toLowerCase().includes(lowerCaseSearchText) ||
-    student.home_town.toLowerCase().includes(lowerCaseSearchText)
-  );
-}
-
+   SearchStudentByCode(): void {
+    if (this.searchQuery.trim() === '') {
+      this.GetAllStudents(); // If search query is empty, show all students
+    } else {
+      this.studentService.GetStudentsByCode(this.searchQuery).subscribe((data) => {
+        this.students = [data]; // Display only the searched student
+      });
+    }
+  }  
 
 }
