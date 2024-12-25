@@ -28,4 +28,8 @@ export class StudentService {
   DeleteStudentByCode(student_code:string):Observable<void>{
     return this.http.delete<void>(`${this.baseUrl}/delete/${student_code}`);
   }
+
+  UpdateStudent(student:any):Observable<any>{
+    return this.http.put(`${this.baseUrl}/update`, student);
+  }
 }
