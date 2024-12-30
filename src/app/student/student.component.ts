@@ -42,8 +42,9 @@ SaveStudent(): void {
   } else {
     swal({
       title: "Are you sure?",
-      text: "Do you want to add this student?",
+      text: "Do you want to save this student?",
       icon: "warning",
+      buttons: ["Cancel", "Save"],
       dangerMode: true,
     }).then((willAdd) => {
       if (willAdd) {
@@ -62,6 +63,7 @@ UpdateStudent(): void {
     title: "Are you sure?",
     text: "Do you want to update this student's details?",
     icon: "warning",
+    buttons: ["Cancel", "Update"],
     dangerMode: true,
   }).then((willUpdate) => {
     if (willUpdate) {
@@ -93,6 +95,7 @@ DeleteStudentByCode(student_code: string): void{
          title: "Are you sure",
          text: "That you want to Delete this Student?",
          icon: "warning",
+         buttons: ["Cancel", "Delete"],
          dangerMode: true,
        })
        .then(willDelete => {

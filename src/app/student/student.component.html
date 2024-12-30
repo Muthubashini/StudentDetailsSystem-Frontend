@@ -1,7 +1,7 @@
+<h1 class="fw-bold text-decoration-underline text-center text-danger" >STUDENT MANAGEMENT SYSTEM</h1>
 
 <main class="mt-5 pt-3">
   <div class="container-fluid">
-
     <div class="row">
       <div class="col-md-12 fw-bold fs-3">
         STUDENT REGISTRATION
@@ -65,7 +65,7 @@
           <div class="card-body overflow-auto">
             <div class="input-group my-3 ">
               <input type="text" class="form-control"  [(ngModel)]="searchQuery" placeholder="Enter Student Code to Search" (input)="SearchStudentByCode()"  />
-              <button (click)="SearchStudentByCode()" class="btn btn-primary"  [disabled]="!searchQuery"> <i class="bi bi-search"></i></button>
+              
             </div>
             <table class="table table-striped table-bordered table-wrapper">
               <thead>
@@ -88,7 +88,7 @@
                   <td>{{studentObj.student_nic}}</td>
                   <td>{{studentObj.home_town}}</td>
                   <td class="text-center">
-                    <button (click)="DeleteStudentByCode(studentObj.student_code)" class="btn btn-danger me-1"  >Delete<i class="bi bi-archive"></i></button>
+                    <button class="btn btn-danger me-1" (click)="DeleteStudentByCode(studentObj.student_code)"  >Delete<i class="bi bi-archive"></i></button>
                     <button (click)="EditStudent(studentObj)"  class="btn btn-info ">Edit<i class="bi bi-file-earmark"></i></button></td>
                     
                 </tr>
