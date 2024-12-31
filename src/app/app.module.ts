@@ -19,7 +19,7 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule,
+    RouterModule.forRoot([]),
     NgbModule,
     FormsModule
   ],
